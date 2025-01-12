@@ -1,11 +1,43 @@
-<h2>Sign up</h2>
+<!-- <h2>Sign up</h2>
 <form (ngSubmit)="register()" [formGroup]="userForm">
    <div>
       <label>Username</label><input formControlName="username">
+      <div *ngIf="userForm.get('username')!.hasError('required')">Username is required</div>
+      <div *ngIf="userForm.get('username')!.hasError('minlength')">Username should be 3 characters min</div>
    </div>
    <div>
       <label>Password</label><input type="password" formControlName="password">
+      <div *ngIf="userForm.get('password')!.hasError('required')">Password is required</div>
    </div>
-   <button type="submit">Register</button>
+   <button type="submit" [disabled]="userForm.invalid">Register</button>
 </form>
-
+ -->
+ <h2>Sign up</h2>
+ <form (ngSubmit)="register()" [formGroup]="userForm">
+    <div>
+       <label>Username</label><input formControlName="username">
+       <div *ngIf="userForm.get('username')!.dirty && userForm.get('username')!.hasError('required')">
+         Username is required
+      </div>
+      <div *ngIf="userForm.get('username')!.dirty && userForm.get('username')!.hasError('minlength')">
+         Username should be 3 characters min
+      </div>
+ 
+    </div>
+    <div>
+       <label>Password</label><input type="password" formControlName="password">
+       <div *ngIf="userForm.get('password')!.dirty && userForm.get('password')!.hasError('required')">
+         Password is required
+      </div>
+ 
+    </div>
+    <div>
+        <label>Birth date</label><input type="date" formControlName="birthdate">
+        <div *ngIf="birthdateCtrl.dirty">
+           <div *ngIf="birthdateCtrl.hasError('required')">Birth date is required</div>
+           <div *ngIf="birthdateCtrl.hasError('tooYoung')">You're way too young to my app</div>
+        </div>
+    </div>
+    <button type="submit" [disabled]="userForm.invalid">Register</button>
+ </form>
+ 
